@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    public float speed = 2.0f;
+    public float speed = 10.0f;
+    public float horizontalForce = 10.0f;
 
-    // Update is called once per frame
+
+    private Rigidbody2D rigidBody2D;
+
+    void Start()
+    {
+        rigidBody2D = GetComponent<Rigidbody2D>();
+    }
+
     void Update()
     {
         Move();
@@ -14,11 +22,23 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void Move()
     {
-        float x = Input.GetAxisRaw("Horizontal")  * Time.deltaTime * speed;
+        float x = Input.GetAxisRaw("Horizontal") * Time.deltaTime;
 
-        Flip(x);
+        if (x != 0.0f)
+        {
+            Flip(x);
 
-        transform.position += new Vector3(x, 0.0f);
+            // Repositioning
+            //transform.position += new Vector3(x, 0.0f);
+
+            rigidBody2D.AddForce(Vector2.right * ((x > 0.0) ? 1.0f : -1.0f) * horizontalForce);
+
+            rigidBody2D.velocity = Vector2.ClampMagnitude(rigidBody2D.velocity, speed);
+        }
+        
+
+        
+        
     }
 
     public void Flip(float x)
