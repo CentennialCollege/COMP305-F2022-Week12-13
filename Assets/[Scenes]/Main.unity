@@ -173,7 +173,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 50
   field of view: 60
   orthographic: 1
   orthographic size: 10
@@ -223,7 +223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &700693768
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -449,7 +449,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  renderer: {fileID: 1178583834}
 --- !u!1 &1187251865
 GameObject:
   m_ObjectHideFlags: 0
