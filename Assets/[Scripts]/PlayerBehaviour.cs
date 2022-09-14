@@ -6,6 +6,7 @@ public class PlayerBehaviour : MonoBehaviour
 {
     public float speed = 10.0f;
     public float horizontalForce = 10.0f;
+    public float verticalForce = 10.0f;
 
 
     private Rigidbody2D rigidBody2D;
@@ -23,6 +24,9 @@ public class PlayerBehaviour : MonoBehaviour
     public void Move()
     {
         float x = Input.GetAxisRaw("Horizontal") * Time.deltaTime;
+        float y = Input.GetAxisRaw("Jump") * Time.deltaTime;
+        Vector2 horizontalVector = Vector2.zero; 
+        Vector2 verticalVector = Vector2.zero;
 
         if (x != 0.0f)
         {
@@ -31,14 +35,26 @@ public class PlayerBehaviour : MonoBehaviour
             // Repositioning
             //transform.position += new Vector3(x, 0.0f);
 
-            rigidBody2D.AddForce(Vector2.right * ((x > 0.0) ? 1.0f : -1.0f) * horizontalForce);
+            horizontalVector = Vector2.right * ((x > 0.0) ? 1.0f : -1.0f) * horizontalForce;
+
+            
+            
+
+            rigidBody2D.AddForce(horizontalVector);
 
             rigidBody2D.velocity = Vector2.ClampMagnitude(rigidBody2D.velocity, speed);
         }
-        
 
-        
-        
+        if (y > 0.0f)
+        {
+            verticalVector = Vector2.up * verticalForce;
+
+            rigidBody2D.AddForce(verticalVector);
+        }
+
+
+
+
     }
 
     public void Flip(float x)
