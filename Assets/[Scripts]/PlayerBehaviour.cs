@@ -9,6 +9,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float speed = 10.0f;
     public float horizontalForce = 10.0f;
     public float verticalForce = 10.0f;
+    public float airFactor = 0.5f;
     public Transform groundPoint;
     public float groundRadius;
     public LayerMask groundLayerMask;
@@ -24,30 +25,33 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
+        isGrounded = Physics2D.OverlapCircle(groundPoint.position, groundRadius, groundLayerMask);
         Move();
+        Jump();
     }
 
     public void Move()
     {
         var x = Input.GetAxisRaw("Horizontal");
-        var y = Input.GetAxisRaw("Jump");
 
-        isGrounded = Physics2D.OverlapCircle(groundPoint.position, groundRadius, groundLayerMask);
-
-        if ((isGrounded) && (x != 0.0f))
+        if (x != 0.0f)
         {
             Flip(x);
 
-            rigidBody2D.AddForce(Vector2.right * ((x > 0.0) ? 1.0f : -1.0f) * horizontalForce);
+            rigidBody2D.AddForce(Vector2.right * ((x > 0.0) ? 1.0f : -1.0f) * horizontalForce * ((isGrounded) ? 1 : airFactor));
 
-            rigidBody2D.velocity = Vector2.ClampMagnitude(rigidBody2D.velocity, speed);
+           rigidBody2D.velocity = Vector2.ClampMagnitude(rigidBody2D.velocity, speed);
         }
+    }
+
+    public void Jump()
+    {
+        var y = Input.GetAxis("Jump");
 
         if ((isGrounded) && (y > 0.0f))
         {
             rigidBody2D.AddForce(Vector2.up * verticalForce);
         }
-
     }
 
     public void Flip(float x)
