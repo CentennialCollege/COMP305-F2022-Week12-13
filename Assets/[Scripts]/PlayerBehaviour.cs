@@ -15,12 +15,16 @@ public class PlayerBehaviour : MonoBehaviour
     public LayerMask groundLayerMask;
     public bool isGrounded;
 
+    [Header("Animations")]
+    public Animator animator;
+
 
     private Rigidbody2D rigidBody2D;
 
     private void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -28,6 +32,7 @@ public class PlayerBehaviour : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundPoint.position, groundRadius, groundLayerMask);
         Move();
         Jump();
+        AirCheck();
     }
 
     public void Move()
@@ -41,6 +46,12 @@ public class PlayerBehaviour : MonoBehaviour
             rigidBody2D.AddForce(Vector2.right * ((x > 0.0) ? 1.0f : -1.0f) * horizontalForce * ((isGrounded) ? 1 : airFactor));
 
            rigidBody2D.velocity = Vector2.ClampMagnitude(rigidBody2D.velocity, speed);
+           animator.SetInteger("AnimationState", 1);
+        }
+
+        if ((isGrounded) && (x == 0))
+        {
+            animator.SetInteger("AnimationState", 0);
         }
     }
 
@@ -50,7 +61,15 @@ public class PlayerBehaviour : MonoBehaviour
 
         if ((isGrounded) && (y > 0.0f))
         {
-            rigidBody2D.AddForce(Vector2.up * verticalForce);
+            rigidBody2D.AddForce(Vector2.up * verticalForce, ForceMode2D.Impulse);
+        }
+    }
+
+    public void AirCheck()
+    {
+        if (!isGrounded)
+        {
+            animator.SetInteger("AnimationState", 2);
         }
     }
 
