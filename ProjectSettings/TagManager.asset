@@ -47,6 +47,9 @@ TagManager:
   - name: TileMap
     uniqueID: 440776157
     locked: 0
+  - name: Prop
+    uniqueID: 3780449545
+    locked: 0
   - name: Player
     uniqueID: 193397921
     locked: 0
