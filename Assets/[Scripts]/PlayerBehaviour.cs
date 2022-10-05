@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerBehaviour : MonoBehaviour
 {
     [Header("Movement Properties")]
-    public float speed = 10.0f;
+    public float horizontalSpeed = 10.0f;
     public float horizontalForce = 10.0f;
     public float verticalForce = 10.0f;
     public float airFactor = 0.5f;
@@ -45,7 +45,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             rigidBody2D.AddForce(Vector2.right * ((x > 0.0) ? 1.0f : -1.0f) * horizontalForce * ((isGrounded) ? 1 : airFactor));
 
-           rigidBody2D.velocity = Vector2.ClampMagnitude(rigidBody2D.velocity, speed);
+           rigidBody2D.velocity = Vector2.ClampMagnitude(rigidBody2D.velocity, horizontalSpeed);
            animator.SetInteger("AnimationState", 1);
         }
 
