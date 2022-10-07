@@ -15,6 +15,9 @@ public class PlayerBehaviour : MonoBehaviour
     public LayerMask groundLayerMask;
     public bool isGrounded;
 
+    public float passThroughFactor = 0.1f;
+    public float savedVerticalForce;
+
     [Header("Animations")]
     public Animator animator;
 
@@ -25,11 +28,21 @@ public class PlayerBehaviour : MonoBehaviour
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        savedVerticalForce = verticalForce;
     }
 
     private void FixedUpdate()
     {
-        isGrounded = Physics2D.OverlapCircle(groundPoint.position, groundRadius, groundLayerMask);
+        //isGrounded = Physics2D.OverlapCircle(groundPoint.position, groundRadius, groundLayerMask);
+        var hit = Physics2D.OverlapCircle(groundPoint.position, groundRadius, groundLayerMask);
+        isGrounded = hit;
+
+        if (isGrounded)
+        {
+            verticalForce = (hit.CompareTag("PassThroughPlatform")) ? verticalForce * passThroughFactor : savedVerticalForce;
+        }
+
         Move();
         Jump();
         AirCheck();
@@ -81,6 +94,9 @@ public class PlayerBehaviour : MonoBehaviour
         }
         
     }
+
+    
+
 
     public void OnDrawGizmos()
     {

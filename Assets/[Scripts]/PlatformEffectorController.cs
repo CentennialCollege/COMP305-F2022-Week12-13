@@ -8,8 +8,9 @@ public class PlatformEffectorController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        /*
         other.gameObject.GetComponent<Rigidbody2D>().velocity 
             = Vector2.ClampMagnitude(other.gameObject.GetComponent<Rigidbody2D>().velocity, verticalSpeed);
-
+        */
     }
 }
