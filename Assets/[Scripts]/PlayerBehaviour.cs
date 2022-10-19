@@ -21,6 +21,9 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("Animations")]
     public Animator animator;
 
+    [Header("Health Bar")] 
+    public HealthBarController healthBar;
+
 
     private Rigidbody2D rigidBody2D;
 
@@ -28,6 +31,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        healthBar = transform.parent.GetComponentInChildren<HealthBarController>();
 
         savedVerticalForce = verticalForce;
     }
@@ -102,5 +106,14 @@ public class PlayerBehaviour : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(groundPoint.position, groundRadius);
+    }
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Hazard"))
+        {
+            healthBar.TakeDamage(10);
+        }
     }
 }
