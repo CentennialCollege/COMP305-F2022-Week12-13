@@ -22,7 +22,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Animator animator;
 
     [Header("Health Bar")] 
-    public HealthBarController healthBar;
+    public HealthBarController health;
 
 
     private Rigidbody2D rigidBody2D;
@@ -31,7 +31,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        healthBar = GameObject.Find("Player Health System").GetComponent<HealthBarController>();
+        health = GameObject.Find("Player Health System").GetComponent<HealthBarController>();
 
         savedVerticalForce = verticalForce;
     }
@@ -113,7 +113,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (other.CompareTag("Hazard"))
         {
-            healthBar.TakeDamage(10);
+            health.TakeDamage(10);
         }
     }
 }

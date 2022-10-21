@@ -6,21 +6,17 @@ using UnityEngine.UI;
 [System.Serializable]
 public class HealthBarController : MonoBehaviour
 {
+    [Header("Health Properties")] 
+    public int value;
+
+    [Header("Display Properties")]
     public Slider healthBar;
 
     // Start is called before the first frame update
     void Start()
     {
         healthBar = transform.GetChild(0).GetComponent<Slider>();
-        ResetHealthBar();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            TakeDamage(10);
-        }
+        ResetHealth();
     }
 
     public void TakeDamage(int damage)
@@ -30,10 +26,24 @@ public class HealthBarController : MonoBehaviour
         {
             healthBar.value = 0;
         }
+
+        value = (int) healthBar.value;
     }
 
-    public void ResetHealthBar()
+    public void HealDamage(int damage)
+    {
+        healthBar.value += damage;
+        if (healthBar.value > 100)
+        {
+            healthBar.value = 100;
+        }
+
+        value = (int)healthBar.value;
+    }
+
+    public void ResetHealth()
     {
         healthBar.value = 100;
+        value = (int)healthBar.value;
     }
 }
