@@ -31,7 +31,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        healthBar = transform.parent.GetComponentInChildren<HealthBarController>();
+        healthBar = GameObject.Find("Player Health System").GetComponent<HealthBarController>();
 
         savedVerticalForce = verticalForce;
     }
