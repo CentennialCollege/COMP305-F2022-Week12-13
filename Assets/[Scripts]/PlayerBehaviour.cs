@@ -21,8 +21,9 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("Animations")]
     public Animator animator;
 
-    [Header("Health Bar")] 
+    [Header("Health System")] 
     public HealthBarController health;
+    public LifeCounterController life;
 
 
     private Rigidbody2D rigidBody2D;
@@ -32,8 +33,23 @@ public class PlayerBehaviour : MonoBehaviour
         rigidBody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         health = GameObject.Find("Player Health System").GetComponent<HealthBarController>();
+        life = GameObject.FindObjectOfType<LifeCounterController>();
 
         savedVerticalForce = verticalForce;
+    }
+
+    private void Update()
+    {
+        if (health.value <= 0)
+        {
+            life.LoseLife();
+            health.ResetHealth();
+        }
+
+        if (life.value <= 0)
+        {
+            Debug.Log("Player Dead");
+        }
     }
 
     private void FixedUpdate()
