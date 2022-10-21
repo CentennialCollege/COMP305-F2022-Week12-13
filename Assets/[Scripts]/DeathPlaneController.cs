@@ -12,8 +12,19 @@ public class DeathPlaneController : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            other.gameObject.transform.position = playerSpawnPoint.position;
+            
+            other.gameObject.GetComponent<PlayerBehaviour>().life.LoseLife();
             other.gameObject.GetComponent<PlayerBehaviour>().health.ResetHealth();
+
+            if (other.gameObject.GetComponent<PlayerBehaviour>().life.value > 0)
+            {
+                ReSpawn(other.gameObject);
+            }
         }
+    }
+
+    public void ReSpawn(GameObject go)
+    {
+        go.transform.position = playerSpawnPoint.position;
     }
 }

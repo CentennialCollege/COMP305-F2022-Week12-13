@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class PlayerBehaviour : MonoBehaviour
     public LifeCounterController life;
 
 
+    private DeathPlaneController deathPlane;
     private Rigidbody2D rigidBody2D;
 
     private void Start()
@@ -34,6 +36,7 @@ public class PlayerBehaviour : MonoBehaviour
         animator = GetComponent<Animator>();
         health = GameObject.Find("Player Health System").GetComponent<HealthBarController>();
         life = GameObject.FindObjectOfType<LifeCounterController>();
+        deathPlane = GameObject.FindObjectOfType<DeathPlaneController>();
 
         savedVerticalForce = verticalForce;
     }
@@ -44,11 +47,12 @@ public class PlayerBehaviour : MonoBehaviour
         {
             life.LoseLife();
             health.ResetHealth();
+            deathPlane.ReSpawn(this.gameObject);
         }
 
         if (life.value <= 0)
         {
-            Debug.Log("Player Dead");
+            SceneManager.LoadScene("End");
         }
     }
 
