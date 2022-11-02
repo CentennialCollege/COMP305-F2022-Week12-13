@@ -8,11 +8,19 @@ public class DeathPlaneController : MonoBehaviour
 {
     public Transform playerSpawnPoint;
 
+    private SoundManager soundManager;
+
+    void Start()
+    {
+        soundManager = GameObject.FindObjectOfType<SoundManager>();
+    }
+
+
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.name == "Player")
         {
-            
+            soundManager.Play(SoundFX.DEATH);
             other.gameObject.GetComponent<PlayerBehaviour>().life.LoseLife();
             other.gameObject.GetComponent<PlayerBehaviour>().health.ResetHealth();
 

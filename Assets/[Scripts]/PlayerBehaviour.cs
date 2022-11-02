@@ -29,6 +29,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private DeathPlaneController deathPlane;
     private Rigidbody2D rigidBody2D;
+    private SoundManager soundManager;
 
     private void Start()
     {
@@ -37,7 +38,7 @@ public class PlayerBehaviour : MonoBehaviour
         health = GameObject.Find("Player Health System").GetComponent<HealthBarController>();
         life = GameObject.FindObjectOfType<LifeCounterController>();
         deathPlane = GameObject.FindObjectOfType<DeathPlaneController>();
-
+        soundManager = GameObject.FindObjectOfType<SoundManager>();
         savedVerticalForce = verticalForce;
     }
 
@@ -48,7 +49,9 @@ public class PlayerBehaviour : MonoBehaviour
             life.LoseLife();
             health.ResetHealth();
             deathPlane.ReSpawn(this.gameObject);
+            soundManager.Play(SoundFX.DEATH);
         }
+
 
         if (life.value <= 0)
         {
@@ -99,6 +102,7 @@ public class PlayerBehaviour : MonoBehaviour
         if ((isGrounded) && (y > 0.0f))
         {
             rigidBody2D.AddForce(Vector2.up * verticalForce, ForceMode2D.Impulse);
+            soundManager.Play(SoundFX.JUMP);
         }
     }
 
@@ -134,6 +138,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (other.CompareTag("Hazard"))
         {
             health.TakeDamage(10);
+            soundManager.Play(SoundFX.HURT);
         }
     }
 }
