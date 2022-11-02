@@ -9,7 +9,7 @@ public class SoundManager : MonoBehaviour
     private List<AudioClip> audioClips;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         audioClips = new List<AudioClip>(); // empty List container of type AudioClip

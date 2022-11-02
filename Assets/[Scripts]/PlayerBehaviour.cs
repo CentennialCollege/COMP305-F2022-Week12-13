@@ -47,9 +47,13 @@ public class PlayerBehaviour : MonoBehaviour
         if (health.value <= 0)
         {
             life.LoseLife();
-            health.ResetHealth();
-            deathPlane.ReSpawn(this.gameObject);
-            soundManager.Play(SoundFX.DEATH);
+            
+            if (life.value > 0)
+            {
+                health.ResetHealth();
+                deathPlane.ReSpawn(this.gameObject);
+                soundManager.Play(SoundFX.DEATH);
+            }
         }
 
 
@@ -137,8 +141,12 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (other.CompareTag("Hazard"))
         {
-            health.TakeDamage(10);
-            soundManager.Play(SoundFX.HURT);
+            health.TakeDamage(30);
+            if (life.value > 0)
+            {
+                soundManager.Play(SoundFX.HURT);
+            }
+            
         }
     }
 }

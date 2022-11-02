@@ -20,12 +20,13 @@ public class DeathPlaneController : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            soundManager.Play(SoundFX.DEATH);
+           
             other.gameObject.GetComponent<PlayerBehaviour>().life.LoseLife();
             other.gameObject.GetComponent<PlayerBehaviour>().health.ResetHealth();
 
             if (other.gameObject.GetComponent<PlayerBehaviour>().life.value > 0)
             {
+                soundManager.Play(SoundFX.DEATH);
                 ReSpawn(other.gameObject);
             }
         }
