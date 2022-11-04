@@ -12,12 +12,13 @@ public class UIController : MonoBehaviour
 
     public void OnOptionsButton_Pressed()
     {
+        GameConfig.Instance().PreviousScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene("Options");
     }
 
     public void OnCloseButton_Pressed()
     {
-        SceneManager.LoadScene("Start");
+        SceneManager.LoadScene(GameConfig.Instance().PreviousScene);
     }
 
     public void OnExitButton_Pressed()

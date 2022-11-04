@@ -11,6 +11,7 @@ public class MainSceneGameController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            GameConfig.Instance().PreviousScene = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene("Options");
         }
     }
