@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 [System.Serializable]
 public class SoundManager : MonoBehaviour
 {
-    private AudioMixer mixer;
+    public AudioMixer mixer;
     private AudioSource audioSource;
     private List<AudioClip> audioClips;
 
