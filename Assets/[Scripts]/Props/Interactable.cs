@@ -2,12 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public enum SoundFX
-{
-    JUMP,
-    HURT,
-    DEATH,
-    CHEST
-}
 
+public interface Interactable
+{
+    void Activate();
+}
