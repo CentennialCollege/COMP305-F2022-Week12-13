@@ -28,6 +28,8 @@ public class OptionsSceneGameController : MonoBehaviour
         soundManager.mixer.GetFloat("MusicVolume", out var musicVolume);
         musicVolumeSlider.value = musicVolume;
 
+        FindObjectOfType<SoundManager>().PlayMusic(MusicType.MAIN_SOUNDTRACK);
+
     }
 
     // Update is called once per frame

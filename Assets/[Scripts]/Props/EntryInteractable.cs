@@ -24,7 +24,7 @@ public class EntryInteractable : CameraFocus
         if (!isActivated)
         {
             spriteRenderer.sprite = transitionSprite;
-            soundManager.Play(SoundFX.CHEST);
+            soundManager.PlaySoundFX(Channel.ENVIRONMENT, SoundFXType.CHEST);
             isActivated = true;
         }
     }

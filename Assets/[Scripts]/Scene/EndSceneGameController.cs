@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class EndSceneGameController : MonoBehaviour
 {
+    public SoundManager soundManager;
+
     // Start is called before the first frame update
     void Start()
     {
-        GameObject.FindObjectOfType<SoundManager>().Play(SoundFX.DEATH);
+        soundManager = FindObjectOfType<SoundManager>();
+
+        soundManager.PlaySoundFX(Channel.PLAYER_DEATH, SoundFXType.DEATH);
+
+        soundManager.PlayMusic(MusicType.END_SOUNDTRACK);
     }
 
 }

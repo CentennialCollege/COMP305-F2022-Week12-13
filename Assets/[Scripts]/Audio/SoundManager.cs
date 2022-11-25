@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Channels;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -7,31 +9,46 @@ using UnityEngine.Audio;
 public class SoundManager : MonoBehaviour
 {
     public AudioMixer mixer;
-    private AudioSource audioSource;
-    private List<AudioClip> audioClips;
+    public List<AudioSource> channels;
+    public List<AudioClip> soundFX;
+    public List<AudioClip> music;
 
     // Start is called before the first frame update
     void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-        audioClips = new List<AudioClip>(); // empty List container of type AudioClip
+        channels = GetComponents<AudioSource>().ToList();
+        soundFX = new List<AudioClip>(); // empty List container of type AudioClip
 
         InitializeSoundFX();
     }
 
     private void InitializeSoundFX()
     {
-        audioClips.Add(Resources.Load<AudioClip>("Audio/jump-sound"));
-        audioClips.Add(Resources.Load<AudioClip>("Audio/hurt-sound"));
-        audioClips.Add(Resources.Load<AudioClip>("Audio/death-sound"));
-        audioClips.Add(Resources.Load<AudioClip>("Audio/chest-sound"));
+        // pre-load soundFX
+        soundFX.Add(Resources.Load<AudioClip>("Audio/jump-sound"));
+        soundFX.Add(Resources.Load<AudioClip>("Audio/hurt-sound"));
+        soundFX.Add(Resources.Load<AudioClip>("Audio/death-sound"));
+        soundFX.Add(Resources.Load<AudioClip>("Audio/chest-sound"));
+
+        // pre-load music
+        music.Add(Resources.Load<AudioClip>("Audio/start-soundtrack"));
+        music.Add(Resources.Load<AudioClip>("Audio/main-soundtrack"));
+        music.Add(Resources.Load<AudioClip>("Audio/end-soundtrack"));
+
+        // load the mixer
         mixer = Resources.Load<AudioMixer>("Audio/MasterAudioMixer");
     }
 
-    public void Play(SoundFX sound)
+    public void PlaySoundFX(Channel channel, SoundFXType type)
     {
-        audioSource.clip = audioClips[(int)sound];
-        audioSource.Play();
+        channels[(int)channel].clip = soundFX[(int)type];
+        channels[(int)channel].Play();
+    }
+
+    public void PlayMusic(MusicType type)
+    {
+        channels[(int)Channel.MUSIC].clip = this.music[(int)type];
+        channels[(int)Channel.MUSIC].Play();
     }
 
     public void OnMasterVolume_Changed(float volume)

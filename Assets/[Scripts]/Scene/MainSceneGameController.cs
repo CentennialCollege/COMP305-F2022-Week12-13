@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MainSceneGameController : MonoBehaviour
 {
+    void Start()
+    {
+        FindObjectOfType<SoundManager>().PlayMusic(MusicType.MAIN_SOUNDTRACK);
+    }
+
 
     // Update is called once per frame
     void Update()
