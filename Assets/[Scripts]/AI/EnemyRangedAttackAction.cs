@@ -7,15 +7,14 @@ public class EnemyRangedAttackAction : MonoBehaviour, Action
     public bool hasLOS;
     [Range(1, 100)] 
     public int fireDelay = 20;
-    public GameObject bulletPrefab;
     public Transform bulletSpawn;
-    public Transform bulletParent;
     public Vector2 targetOffset;
+    public BulletManager bulletManager;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
+        bulletManager = FindObjectOfType<BulletManager>();
     }
 
     // Update is called once per frame
@@ -34,8 +33,9 @@ public class EnemyRangedAttackAction : MonoBehaviour, Action
 
     public void Execute()
     {
-        var bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity, bulletParent);
+        var bullet = bulletManager.GetBullet(bulletSpawn.position);
         bullet.GetComponent<BulletController>().direction =
             transform.parent.GetComponentInChildren<PlayerDetection>().playerDirectionVector + targetOffset;
+        bullet.GetComponent<BulletController>().Activate();
     }
 }

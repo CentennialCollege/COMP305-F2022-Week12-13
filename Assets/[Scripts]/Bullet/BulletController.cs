@@ -10,17 +10,21 @@ public class BulletController : MonoBehaviour
     public float force;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
-        Move();
-        Invoke("DestroyYourself", 2.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
         Rotate();
+    }
+
+    public void Activate()
+    {
+        Move();
+        Invoke("DestroyYourself", 2.0f);
     }
 
     public void Move()
@@ -35,6 +39,20 @@ public class BulletController : MonoBehaviour
 
     public void DestroyYourself()
     {
-        Destroy(this.gameObject);
+        if (gameObject.activeInHierarchy)
+        {
+            FindObjectOfType<BulletManager>().ReturnBullet(gameObject);
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            //TODO: Make Sound and do some damage
+            FindObjectOfType<BulletManager>().ReturnBullet(gameObject);
+        }
+        
+        
     }
 }

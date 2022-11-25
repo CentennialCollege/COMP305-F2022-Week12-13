@@ -17,6 +17,7 @@ public class BulletManager : MonoBehaviour
     {
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
         bulletPool = new Queue<GameObject>();
+        bulletParent = GameObject.FindWithTag("BulletParent").transform;
     }
 
     void Start()
@@ -53,6 +54,9 @@ public class BulletManager : MonoBehaviour
 
     public void ReturnBullet(GameObject bullet)
     {
+        var bulletController = bullet.GetComponent<BulletController>();
+        bulletController.direction = Vector2.zero;
+        bulletController.rigidbody2D.velocity = Vector2.zero;
         bullet.SetActive(false);
         bulletPool.Enqueue(bullet);
     }
