@@ -41,7 +41,7 @@ public class BulletController : MonoBehaviour
     {
         if (gameObject.activeInHierarchy)
         {
-            FindObjectOfType<BulletManager>().ReturnBullet(gameObject);
+            BulletManager.Instance().ReturnBullet(gameObject);
         }
     }
 
@@ -50,7 +50,7 @@ public class BulletController : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             //TODO: Make Sound and do some damage
-            FindObjectOfType<BulletManager>().ReturnBullet(gameObject);
+            BulletManager.Instance().ReturnBullet(gameObject);
         }
         
         

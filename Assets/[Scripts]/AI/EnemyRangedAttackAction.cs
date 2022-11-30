@@ -9,13 +9,8 @@ public class EnemyRangedAttackAction : MonoBehaviour, Action
     public int fireDelay = 20;
     public Transform bulletSpawn;
     public Vector2 targetOffset;
-    public BulletManager bulletManager;
+    
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        bulletManager = FindObjectOfType<BulletManager>();
-    }
 
     // Update is called once per frame
     void Update()
@@ -33,7 +28,7 @@ public class EnemyRangedAttackAction : MonoBehaviour, Action
 
     public void Execute()
     {
-        var bullet = bulletManager.GetBullet(bulletSpawn.position);
+        var bullet = BulletManager.Instance().GetBullet(bulletSpawn.position);
         bullet.GetComponent<BulletController>().direction =
             transform.parent.GetComponentInChildren<PlayerDetection>().playerDirectionVector + targetOffset;
         bullet.GetComponent<BulletController>().Activate();

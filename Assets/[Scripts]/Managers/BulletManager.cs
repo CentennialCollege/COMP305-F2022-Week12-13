@@ -3,25 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class BulletManager : MonoBehaviour
+public class BulletManager 
 {
-    [Header("Pool Properties")] 
-    public int maxBullets;
-    public GameObject bulletPrefab;
-    public Transform bulletParent;
+    /********************** SINGLETON SECTION ******************************/
 
+    // Step 1. - Make the Constructor Private
+    private BulletManager()
+    {
+        Initialize();
+    }
+
+    // Step 2. - Define private static instance member
+    private static BulletManager m_instance;
+
+    // Step 3. - Include a public static Creational Method named Instance
+    public static BulletManager Instance()
+    {
+        return m_instance ??= new BulletManager();
+    }
+
+    /***********************************************************************/
+
+    private int maxBullets;
+    private GameObject bulletPrefab;
+    private Transform bulletParent;
     private Queue<GameObject> bulletPool;
 
-    // Start is called before the first frame update
-    void Awake()
+    void Initialize()
     {
+        maxBullets = 50;
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
         bulletPool = new Queue<GameObject>();
         bulletParent = GameObject.FindWithTag("BulletParent").transform;
-    }
-
-    void Start()
-    {
         BuildPool();
     }
 
@@ -39,7 +52,7 @@ public class BulletManager : MonoBehaviour
 
     private GameObject CreateBullet()
     {
-        var tempBullet = Instantiate(bulletPrefab, Vector2.zero, Quaternion.identity, bulletParent);
+        var tempBullet = MonoBehaviour.Instantiate(bulletPrefab, Vector2.zero, Quaternion.identity, bulletParent);
         tempBullet.SetActive(false);
         return tempBullet;
     }
@@ -59,5 +72,10 @@ public class BulletManager : MonoBehaviour
         bulletController.rigidbody2D.velocity = Vector2.zero;
         bullet.SetActive(false);
         bulletPool.Enqueue(bullet);
+    }
+
+    public int GetPoolSize()
+    {
+        return bulletPool.Count;
     }
 }
