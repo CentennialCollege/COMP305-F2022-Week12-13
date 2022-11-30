@@ -10,7 +10,7 @@ public class Channel : MonoBehaviour
     public ChannelType channelType;
     public AudioMixer audioMixer;
     public AudioMixerGroup mixerGroup;
-    private AudioSource audioSource;
+    private AudioSource audioSource;    
 
     // Start is called before the first frame update
     void Start()

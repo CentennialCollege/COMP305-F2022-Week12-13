@@ -9,17 +9,24 @@ using UnityEngine.Audio;
 public class SoundManager : MonoBehaviour
 {
     public AudioMixer mixer;
-    public List<AudioSource> channels;
     public List<AudioClip> soundFX;
     public List<AudioClip> music;
+
+    public int maxChannels;
+    public GameObject channelPrefab;
+    private Transform channelParent;
+    private Queue<GameObject> channelPool;
 
     // Start is called before the first frame update
     void Awake()
     {
-        channels = GetComponents<AudioSource>().ToList();
         soundFX = new List<AudioClip>(); // empty List container of type AudioClip
+        music = new List<AudioClip>(); // empty List container of type AudioClip
 
         InitializeSoundFX();
+
+        maxChannels = 10;
+        BuildPool();
     }
 
     private void InitializeSoundFX()
@@ -39,16 +46,47 @@ public class SoundManager : MonoBehaviour
         mixer = Resources.Load<AudioMixer>("Audio/MasterAudioMixer");
     }
 
-    public void PlaySoundFX(ChannelType channelType, SoundFXType type)
+    private void BuildPool()
     {
-        channels[(int)channelType].clip = soundFX[(int)type];
-        channels[(int)channelType].Play();
+        for (var i = 0; i < maxChannels; i++)
+        {
+            var tempChannel = CreateChannel();
+            channelPool.Enqueue(tempChannel);
+        }
+    }
+
+    private GameObject CreateChannel()
+    {
+        var tempChannel = MonoBehaviour.Instantiate(channelPrefab, channelParent);
+        tempChannel.GetComponent<Channel>().SetAudioMixer(mixer);
+        tempChannel.SetActive(false);
+        return tempChannel;
+    }
+
+    public GameObject GetChannel(ChannelType type)
+    {
+        var tempChannel = channelPool.Count < 1 ? CreateChannel() : channelPool.Dequeue();
+        tempChannel.GetComponent<Channel>().SetAudioMixerGroup(type);
+        tempChannel.SetActive(true);
+        return tempChannel;
+    }
+
+    public void ReturnChannel(GameObject channel)
+    {
+        channel.SetActive(false);
+        channelPool.Enqueue(channel);
+    }
+
+    public void PlaySoundFX(SoundFXType type)
+    {
+        var channel = GetChannel(ChannelType.SOUND_FX);
+        channel.GetComponent<Channel>().Play(soundFX[(int)type]);
     }
 
     public void PlayMusic(MusicType type)
     {
-        channels[(int)ChannelType.MUSIC].clip = this.music[(int)type];
-        channels[(int)ChannelType.MUSIC].Play();
+        var channel = GetChannel(ChannelType.MUSIC);
+        channel.GetComponent<Channel>().Play(soundFX[(int)type], ChannelType.MUSIC);
     }
 
     public void OnMasterVolume_Changed(float volume)
