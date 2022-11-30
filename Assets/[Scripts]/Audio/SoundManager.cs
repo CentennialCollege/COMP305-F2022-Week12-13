@@ -35,20 +35,20 @@ public class SoundManager : MonoBehaviour
         music.Add(Resources.Load<AudioClip>("Audio/main-soundtrack"));
         music.Add(Resources.Load<AudioClip>("Audio/end-soundtrack"));
 
-        // load the mixer
+        // load the audioMixer
         mixer = Resources.Load<AudioMixer>("Audio/MasterAudioMixer");
     }
 
-    public void PlaySoundFX(Channel channel, SoundFXType type)
+    public void PlaySoundFX(ChannelType channelType, SoundFXType type)
     {
-        channels[(int)channel].clip = soundFX[(int)type];
-        channels[(int)channel].Play();
+        channels[(int)channelType].clip = soundFX[(int)type];
+        channels[(int)channelType].Play();
     }
 
     public void PlayMusic(MusicType type)
     {
-        channels[(int)Channel.MUSIC].clip = this.music[(int)type];
-        channels[(int)Channel.MUSIC].Play();
+        channels[(int)ChannelType.MUSIC].clip = this.music[(int)type];
+        channels[(int)ChannelType.MUSIC].Play();
     }
 
     public void OnMasterVolume_Changed(float volume)

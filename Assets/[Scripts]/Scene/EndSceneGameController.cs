@@ -11,7 +11,7 @@ public class EndSceneGameController : MonoBehaviour
     {
         soundManager = FindObjectOfType<SoundManager>();
 
-        soundManager.PlaySoundFX(Channel.PLAYER_DEATH, SoundFXType.DEATH);
+        soundManager.PlaySoundFX(ChannelType.PLAYER_DEATH, SoundFXType.DEATH);
 
         soundManager.PlayMusic(MusicType.END_SOUNDTRACK);
     }
