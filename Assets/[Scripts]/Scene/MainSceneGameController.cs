@@ -7,7 +7,7 @@ public class MainSceneGameController : MonoBehaviour
 {
     void Start()
     {
-        //FindObjectOfType<SoundManager>().PlayMusic(MusicType.MAIN_SOUNDTRACK);
+        FindObjectOfType<SoundManager>().PlayMusic(MusicType.MAIN_SOUNDTRACK);
     }
 
 

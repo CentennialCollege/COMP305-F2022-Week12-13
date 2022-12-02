@@ -10,6 +10,7 @@ public class Channel : MonoBehaviour
     public ChannelType channelType;
     public AudioMixer audioMixer;
     public AudioMixerGroup mixerGroup;
+    public SoundManager soundManager;
     private AudioSource audioSource;    
 
     // Start is called before the first frame update
@@ -17,6 +18,7 @@ public class Channel : MonoBehaviour
     {
         channelType = ChannelType.SOUND_FX;
         audioSource = GetComponent<AudioSource>();
+        soundManager = FindObjectOfType<SoundManager>();
     }
 
     public void SetAudioMixer(AudioMixer mixer)
@@ -33,7 +35,6 @@ public class Channel : MonoBehaviour
             switch (channelType)
             {
                 case ChannelType.SOUND_FX:
-                    Debug.Log("In SOUND_FX: " + audioMixer.FindMatchingGroups("SoundFX")[0]);
                     mixerGroup = audioMixer.FindMatchingGroups("SoundFX")[0];
                     break;
                 case ChannelType.MUSIC:
@@ -52,13 +53,29 @@ public class Channel : MonoBehaviour
 
     public void Play(AudioClip clip, ChannelType type = ChannelType.SOUND_FX)
     {
+        if (type == ChannelType.SOUND_FX)
+        {
+            Invoke("DestroyChannel", clip.length);
+        }
+        
         SetAudioMixerGroup(type);
         audioSource.clip = clip;
         audioSource.Play();
     }
 
+    public void Stop()
+    {
+        audioSource.Stop();
+        DestroyChannel();
+    }
+
     public bool IsPlaying()
     {
         return audioSource.isPlaying;
+    }
+
+    public void DestroyChannel()
+    {
+        soundManager.ReturnChannel(this.gameObject);
     }
 }

@@ -95,7 +95,7 @@ public class SoundManager : MonoBehaviour
     public void PlayMusic(MusicType type)
     {
         var channel = GetChannel(ChannelType.MUSIC);
-        channel.GetComponent<Channel>().Play(soundFX[(int)type], ChannelType.MUSIC);
+        channel.GetComponent<Channel>().Play(music[(int)type], ChannelType.MUSIC);
     }
 
     public void OnMasterVolume_Changed(float volume)
