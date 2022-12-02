@@ -13,10 +13,10 @@ public class Channel : MonoBehaviour
     private AudioSource audioSource;    
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        channelType = ChannelType.SOUND_FX;
         audioSource = GetComponent<AudioSource>();
-        SetAudioMixerGroup(ChannelType.SOUND_FX);
     }
 
     public void SetAudioMixer(AudioMixer mixer)
@@ -33,6 +33,7 @@ public class Channel : MonoBehaviour
             switch (channelType)
             {
                 case ChannelType.SOUND_FX:
+                    Debug.Log("In SOUND_FX: " + audioMixer.FindMatchingGroups("SoundFX")[0]);
                     mixerGroup = audioMixer.FindMatchingGroups("SoundFX")[0];
                     break;
                 case ChannelType.MUSIC:

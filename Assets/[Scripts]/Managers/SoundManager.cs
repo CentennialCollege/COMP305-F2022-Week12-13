@@ -22,9 +22,14 @@ public class SoundManager : MonoBehaviour
     {
         soundFX = new List<AudioClip>(); // empty List container of type AudioClip
         music = new List<AudioClip>(); // empty List container of type AudioClip
+        channelParent = GameObject.Find("[CHANNELS]").transform;
+        channelPool = new Queue<GameObject>(); // creates an empty container
 
         InitializeSoundFX();
+    }
 
+    void Start()
+    {
         maxChannels = 10;
         BuildPool();
     }
@@ -44,6 +49,9 @@ public class SoundManager : MonoBehaviour
 
         // load the audioMixer
         mixer = Resources.Load<AudioMixer>("Audio/MasterAudioMixer");
+
+        // load the channelPrefab
+        channelPrefab = Resources.Load<GameObject>("Prefabs/Channel");
     }
 
     private void BuildPool()
@@ -59,6 +67,7 @@ public class SoundManager : MonoBehaviour
     {
         var tempChannel = MonoBehaviour.Instantiate(channelPrefab, channelParent);
         tempChannel.GetComponent<Channel>().SetAudioMixer(mixer);
+        tempChannel.GetComponent<Channel>().SetAudioMixerGroup(ChannelType.SOUND_FX);
         tempChannel.SetActive(false);
         return tempChannel;
     }
