@@ -7,7 +7,9 @@ public class MainSceneGameController : MonoBehaviour
 {
     void Start()
     {
-        FindObjectOfType<SoundManager>().PlayMusic(MusicType.MAIN_SOUNDTRACK);
+        BulletManager.Instance().BuildPool();
+        SoundManager.Instance().BuildPool();
+        SoundManager.Instance().PlayMusic(MusicType.MAIN_SOUNDTRACK);
     }
 
 
@@ -18,6 +20,8 @@ public class MainSceneGameController : MonoBehaviour
         {
             GameConfig.Instance().PreviousScene = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene("Options");
+            BulletManager.Instance().DestroyPool();
+            SoundManager.Instance().DestroyPool();
         }
     }
 }

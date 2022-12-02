@@ -34,20 +34,29 @@ public class BulletManager
         maxBullets = 50;
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
         bulletPool = new Queue<GameObject>();
-        bulletParent = GameObject.FindWithTag("BulletParent").transform;
-        BuildPool();
     }
 
     /// <summary>
     /// Pre-allocate all the GameObjects in the Pool
     /// </summary>
-    private void BuildPool()
+    public void BuildPool()
     {
+        bulletParent = GameObject.FindWithTag("BulletParent").transform;
         for (var i = 0; i < maxBullets; i++)
         {
             var tempBullet = CreateBullet();
             bulletPool.Enqueue(tempBullet);
         }
+    }
+
+    public void DestroyPool()
+    {
+        for (var i = 0; i < bulletPool.Count; i++)
+        {
+            var tempBullet = bulletPool.Dequeue();
+            MonoBehaviour.Destroy(tempBullet);
+        }
+        bulletPool.Clear();
     }
 
     private GameObject CreateBullet()

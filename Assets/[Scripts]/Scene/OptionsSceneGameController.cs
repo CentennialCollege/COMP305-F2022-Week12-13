@@ -8,7 +8,6 @@ public class OptionsSceneGameController : MonoBehaviour
     private Slider masterVolumeSlider;
     private Slider soundFXVolumeSlider;
     private Slider musicVolumeSlider;
-    private SoundManager soundManager;
 
     // Start is called before the first frame update
     void Start()
@@ -16,25 +15,19 @@ public class OptionsSceneGameController : MonoBehaviour
         masterVolumeSlider = GameObject.Find("MasterSlider").GetComponent<Slider>();
         soundFXVolumeSlider = GameObject.Find("SoundFXSlider").GetComponent<Slider>();
         musicVolumeSlider = GameObject.Find("MusicSlider").GetComponent<Slider>();
-        soundManager = GameObject.FindObjectOfType<SoundManager>();
 
-
-        soundManager.mixer.GetFloat("MasterVolume", out var masterVolume);
+        SoundManager.Instance().BuildPool();
+        SoundManager.Instance().mixer.GetFloat("MasterVolume", out var masterVolume);
         masterVolumeSlider.value = masterVolume;
 
-        soundManager.mixer.GetFloat("SoundFXVolume", out var soundFXVolume);
+        SoundManager.Instance().mixer.GetFloat("SoundFXVolume", out var soundFXVolume);
         soundFXVolumeSlider.value = soundFXVolume;
 
-        soundManager.mixer.GetFloat("MusicVolume", out var musicVolume);
+        SoundManager.Instance().mixer.GetFloat("MusicVolume", out var musicVolume);
         musicVolumeSlider.value = musicVolume;
 
-        FindObjectOfType<SoundManager>().PlayMusic(MusicType.MAIN_SOUNDTRACK);
+        SoundManager.Instance().PlayMusic(MusicType.MAIN_SOUNDTRACK);
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -10,7 +10,6 @@ public class Channel : MonoBehaviour
     public ChannelType channelType;
     public AudioMixer audioMixer;
     public AudioMixerGroup mixerGroup;
-    public SoundManager soundManager;
     private AudioSource audioSource;    
 
     // Start is called before the first frame update
@@ -18,7 +17,6 @@ public class Channel : MonoBehaviour
     {
         channelType = ChannelType.SOUND_FX;
         audioSource = GetComponent<AudioSource>();
-        soundManager = FindObjectOfType<SoundManager>();
     }
 
     public void SetAudioMixer(AudioMixer mixer)
@@ -76,6 +74,6 @@ public class Channel : MonoBehaviour
 
     public void DestroyChannel()
     {
-        soundManager.ReturnChannel(this.gameObject);
+        SoundManager.Instance().ReturnChannel(this.gameObject);
     }
 }

@@ -29,7 +29,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     private DeathPlaneController deathPlane;
     private Rigidbody2D rigidBody2D;
-    private SoundManager soundManager;
 
     private void Start()
     {
@@ -38,7 +37,6 @@ public class PlayerBehaviour : MonoBehaviour
         health = GameObject.Find("Player Health System").GetComponent<HealthBarController>();
         life = GameObject.FindObjectOfType<LifeCounterController>();
         deathPlane = GameObject.FindObjectOfType<DeathPlaneController>();
-        soundManager = GameObject.FindObjectOfType<SoundManager>();
         savedVerticalForce = verticalForce;
     }
 
@@ -52,7 +50,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 health.ResetHealth();
                 deathPlane.ReSpawn(this.gameObject);
-                soundManager.PlaySoundFX(SoundFXType.DEATH);
+                SoundManager.Instance().PlaySoundFX(SoundFXType.DEATH);
             }
         }
 
@@ -60,6 +58,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (life.value <= 0)
         {
             SceneManager.LoadScene("End");
+            BulletManager.Instance().DestroyPool();
+            SoundManager.Instance().DestroyPool();
         }
     }
 
@@ -106,7 +106,7 @@ public class PlayerBehaviour : MonoBehaviour
         if ((isGrounded) && (y > 0.0f))
         {
             rigidBody2D.AddForce(Vector2.up * verticalForce, ForceMode2D.Impulse);
-            soundManager.PlaySoundFX(SoundFXType.JUMP);
+            SoundManager.Instance().PlaySoundFX(SoundFXType.JUMP);
         }
     }
 
@@ -144,7 +144,7 @@ public class PlayerBehaviour : MonoBehaviour
             health.TakeDamage(30);
             if (life.value > 0)
             {
-                soundManager.PlaySoundFX(SoundFXType.HURT);
+                SoundManager.Instance().PlaySoundFX(SoundFXType.HURT);
             }
             
         }

@@ -7,7 +7,8 @@ public class StartSceneGameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FindObjectOfType<SoundManager>().PlayMusic(MusicType.START_SOUNDTRACK);
+        SoundManager.Instance().BuildPool();
+        SoundManager.Instance().PlayMusic(MusicType.START_SOUNDTRACK);
     }
 
 

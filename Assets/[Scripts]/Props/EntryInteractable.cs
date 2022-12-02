@@ -8,14 +8,12 @@ public class EntryInteractable : CameraFocus
 {
     private Sprite transitionSprite;
     private SpriteRenderer spriteRenderer;
-    private SoundManager soundManager;
     private bool isActivated;
 
     private void Awake()
     {
         transitionSprite = Resources.Load<Sprite>("Sprites/Chest2");
         spriteRenderer = GetComponent<SpriteRenderer>();
-        soundManager = FindObjectOfType<SoundManager>();
         isActivated = false;
     }
 
@@ -24,7 +22,7 @@ public class EntryInteractable : CameraFocus
         if (!isActivated)
         {
             spriteRenderer.sprite = transitionSprite;
-            soundManager.PlaySoundFX(SoundFXType.CHEST);
+            SoundManager.Instance().PlaySoundFX(SoundFXType.CHEST);
             isActivated = true;
         }
     }

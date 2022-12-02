@@ -6,32 +6,44 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 [System.Serializable]
-public class SoundManager : MonoBehaviour
+public class SoundManager
 {
-    public AudioMixer mixer;
-    public List<AudioClip> soundFX;
-    public List<AudioClip> music;
+    /********************** SINGLETON SECTION ******************************/
 
-    public int maxChannels;
-    public GameObject channelPrefab;
+    // Step 1. - Make the Constructor Private
+    private SoundManager()
+    {
+        Initialize();
+    }
+
+    // Step 2. - Define private static instance member
+    private static SoundManager m_instance;
+
+    // Step 3. - Include a public static Creational Method named Instance
+    public static SoundManager Instance()
+    {
+        return m_instance ??= new SoundManager();
+    }
+
+    /***********************************************************************/
+
+    public AudioMixer mixer;
+    private List<AudioClip> soundFX;
+    private List<AudioClip> music;
+
+    private int maxChannels;
+    private GameObject channelPrefab;
     private Transform channelParent;
     private Queue<GameObject> channelPool;
 
     // Start is called before the first frame update
-    void Awake()
+    void Initialize()
     {
         soundFX = new List<AudioClip>(); // empty List container of type AudioClip
         music = new List<AudioClip>(); // empty List container of type AudioClip
-        channelParent = GameObject.Find("[CHANNELS]").transform;
         channelPool = new Queue<GameObject>(); // creates an empty container
-
         InitializeSoundFX();
-    }
-
-    void Start()
-    {
         maxChannels = 10;
-        BuildPool();
     }
 
     private void InitializeSoundFX()
@@ -54,13 +66,24 @@ public class SoundManager : MonoBehaviour
         channelPrefab = Resources.Load<GameObject>("Prefabs/Channel");
     }
 
-    private void BuildPool()
+    public void BuildPool()
     {
+        channelParent = GameObject.Find("[CHANNELS]").transform;
         for (var i = 0; i < maxChannels; i++)
         {
             var tempChannel = CreateChannel();
             channelPool.Enqueue(tempChannel);
         }
+    }
+
+    public void DestroyPool()
+    {
+        for (var i = 0; i < channelPool.Count; i++)
+        {
+            var tempChannel = channelPool.Dequeue();
+            MonoBehaviour.Destroy(tempChannel);
+        }
+        channelPool.Clear();
     }
 
     private GameObject CreateChannel()
@@ -97,21 +120,5 @@ public class SoundManager : MonoBehaviour
         var channel = GetChannel(ChannelType.MUSIC);
         channel.GetComponent<Channel>().Play(music[(int)type], ChannelType.MUSIC);
     }
-
-    public void OnMasterVolume_Changed(float volume)
-    {
-        mixer.SetFloat("MasterVolume", volume);
-    }
-
-    public void OnSoundFXVolume_Changed(float volume)
-    {
-        mixer.SetFloat("SoundFXVolume", volume);
-    }
-
-    public void OnMusicVolume_Changed(float volume)
-    {
-        mixer.SetFloat("MusicVolume", volume);
-    }
-
 
 }
