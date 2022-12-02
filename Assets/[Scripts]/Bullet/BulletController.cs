@@ -49,7 +49,6 @@ public class BulletController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //TODO: Make Sound and do some damage
             BulletManager.Instance().ReturnBullet(gameObject);
         }
         

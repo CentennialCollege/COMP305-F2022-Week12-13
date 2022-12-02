@@ -9,7 +9,6 @@ public enum SoundFXType
     HURT,
     DEATH,
     CHEST,
-    MAIN_SOUNDTRACK,
-    END_SOUNDTRACK
+    BULLET
 }
 

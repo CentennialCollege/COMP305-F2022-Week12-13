@@ -146,7 +146,15 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 SoundManager.Instance().PlaySoundFX(SoundFXType.HURT);
             }
-            
+        }
+
+        if (other.CompareTag("Bullet"))
+        {
+            health.TakeDamage(10);
+            if (life.value > 0)
+            {
+                SoundManager.Instance().PlaySoundFX(SoundFXType.HURT);
+            }
         }
     }
 }

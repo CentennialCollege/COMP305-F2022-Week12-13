@@ -32,5 +32,6 @@ public class EnemyRangedAttackAction : MonoBehaviour, Action
         bullet.GetComponent<BulletController>().direction =
             transform.parent.GetComponentInChildren<PlayerDetection>().playerDirectionVector + targetOffset;
         bullet.GetComponent<BulletController>().Activate();
+        SoundManager.Instance().PlaySoundFX(SoundFXType.BULLET);
     }
 }

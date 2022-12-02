@@ -53,6 +53,7 @@ public class SoundManager
         soundFX.Add(Resources.Load<AudioClip>("Audio/hurt-sound"));
         soundFX.Add(Resources.Load<AudioClip>("Audio/death-sound"));
         soundFX.Add(Resources.Load<AudioClip>("Audio/chest-sound"));
+        soundFX.Add(Resources.Load<AudioClip>("Audio/bullet-sound"));
 
         // pre-load music
         music.Add(Resources.Load<AudioClip>("Audio/start-soundtrack"));
