@@ -523,7 +523,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.12, y: 2.77, z: 0}
+  m_LocalPosition: {x: 0.12, y: -2.001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10757,7 +10757,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1179953133}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.12, y: 2.77, z: 0}
+  m_LocalPosition: {x: 0.12, y: -2.001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15600,6 +15600,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15665,9 +15666,9 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -16485,7 +16486,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 150
+      scalar: 100
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -16915,7 +16916,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 0
+    enabled: 1
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -16924,7 +16925,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -17104,11 +17105,11 @@ ParticleSystem:
     flipU: 0
     flipV: 0
   VelocityModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: -0.3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -17161,7 +17162,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.2
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -17688,7 +17689,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    inWorldSpace: 0
+    inWorldSpace: 1
   InheritVelocityModule:
     enabled: 0
     m_Mode: 0
@@ -19545,7 +19546,7 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 0
+    enabled: 1
     mode: 0
     ratio: 1
     lifetime:
@@ -19616,13 +19617,13 @@ ParticleSystem:
     attachRibbonsToTransform: 0
     colorOverLifetime:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 1
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 0.8705883, g: 0.6039216, b: 0.37647063, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -21083,7 +21084,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7836168407579233220, guid: 93c5e7f70b1c3b4468400dd99f148b0e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.77
+      value: -1.0009999
       objectReference: {fileID: 0}
     - target: {fileID: 7836168407579233220, guid: 93c5e7f70b1c3b4468400dd99f148b0e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -21726,6 +21727,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 461620916, guid: 3889cb435a1883643a19de7ede838935, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.55
+      objectReference: {fileID: 0}
     - target: {fileID: 1468701966, guid: 3889cb435a1883643a19de7ede838935, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -21756,7 +21761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7072273973629019323, guid: 3889cb435a1883643a19de7ede838935, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.77
+      value: -2.001
       objectReference: {fileID: 0}
     - target: {fileID: 7072273973629019323, guid: 3889cb435a1883643a19de7ede838935, type: 3}
       propertyPath: m_LocalPosition.z
@@ -21789,6 +21794,30 @@ PrefabInstance:
     - target: {fileID: 7072273973629019323, guid: 3889cb435a1883643a19de7ede838935, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072273973629019324, guid: 3889cb435a1883643a19de7ede838935, type: 3}
+      propertyPath: m_Size.y
+      value: 1.5807195
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072273973629019324, guid: 3889cb435a1883643a19de7ede838935, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.21148324
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072273973629019326, guid: 3889cb435a1883643a19de7ede838935, type: 3}
+      propertyPath: dustTrailColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072273973629019326, guid: 3889cb435a1883643a19de7ede838935, type: 3}
+      propertyPath: dustTrailColor.b
+      value: 0.3137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072273973629019326, guid: 3889cb435a1883643a19de7ede838935, type: 3}
+      propertyPath: dustTrailColor.g
+      value: 0.41176474
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072273973629019326, guid: 3889cb435a1883643a19de7ede838935, type: 3}
+      propertyPath: dustTrailColor.r
+      value: 0.7019608
       objectReference: {fileID: 0}
     - target: {fileID: 7072273973629019326, guid: 3889cb435a1883643a19de7ede838935, type: 3}
       propertyPath: groundLayerMask.m_Bits

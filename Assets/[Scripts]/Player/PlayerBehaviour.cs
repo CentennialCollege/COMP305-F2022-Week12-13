@@ -22,6 +22,11 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("Animations")]
     public Animator animator;
 
+    [Header("Dust Trail Properties")] 
+    public ParticleSystem dustTrailParticleSystem;
+    public Color dustTrailColor;
+    
+
     [Header("Health System")] 
     public HealthBarController health;
     public LifeCounterController life;
@@ -37,6 +42,7 @@ public class PlayerBehaviour : MonoBehaviour
         health = GameObject.Find("Player Health System").GetComponent<HealthBarController>();
         life = GameObject.FindObjectOfType<LifeCounterController>();
         deathPlane = GameObject.FindObjectOfType<DeathPlaneController>();
+        dustTrailParticleSystem = GetComponentInChildren<ParticleSystem>();
         savedVerticalForce = verticalForce;
     }
 
@@ -91,12 +97,24 @@ public class PlayerBehaviour : MonoBehaviour
 
            rigidBody2D.velocity = Vector2.ClampMagnitude(rigidBody2D.velocity, horizontalSpeed);
            animator.SetInteger("AnimationState", 1);
+
+           if (isGrounded)
+           {
+               CreateDustTrail();
+           }
+
         }
 
         if ((isGrounded) && (x == 0))
         {
             animator.SetInteger("AnimationState", 0);
         }
+    }
+
+    public void CreateDustTrail()
+    {
+        dustTrailParticleSystem.GetComponent<Renderer>().material.SetColor("_Color", dustTrailColor);
+        dustTrailParticleSystem.Play();
     }
 
     public void Jump()

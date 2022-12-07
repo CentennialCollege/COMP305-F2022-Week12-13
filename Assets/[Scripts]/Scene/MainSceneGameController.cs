@@ -9,7 +9,7 @@ public class MainSceneGameController : MonoBehaviour
     {
         BulletManager.Instance().BuildPool();
         SoundManager.Instance().BuildPool();
-        SoundManager.Instance().PlayMusic(MusicType.MAIN_SOUNDTRACK);
+        //SoundManager.Instance().PlayMusic(MusicType.MAIN_SOUNDTRACK);
     }
 
 
