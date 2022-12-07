@@ -9,6 +9,7 @@ TagManager:
   - Hazard
   - Bullet
   - BulletParent
+  - Marker
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,8 @@ TagManager:
   - Bullet
   - Camera Confiner
   - Interactable
-  - 
-  - 
+  - Marker
+  - Hazard
   - 
   - 
   - 
@@ -69,6 +70,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 193397921
+    locked: 0
+  - name: Marker
+    uniqueID: 3719259221
     locked: 0
   - name: UI
     uniqueID: 3449271661

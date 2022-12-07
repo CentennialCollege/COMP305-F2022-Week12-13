@@ -5,11 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class MainSceneGameController : MonoBehaviour
 {
+    public GameObject miniMap;
+
+
     void Start()
     {
         BulletManager.Instance().BuildPool();
         SoundManager.Instance().BuildPool();
         //SoundManager.Instance().PlayMusic(MusicType.MAIN_SOUNDTRACK);
+
+        miniMap = GameObject.Find("MiniMap");
+        miniMap.SetActive(false);
     }
 
 
@@ -22,6 +28,11 @@ public class MainSceneGameController : MonoBehaviour
             SceneManager.LoadScene("Options");
             BulletManager.Instance().DestroyPool();
             SoundManager.Instance().DestroyPool();
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            miniMap.SetActive(!miniMap.activeInHierarchy);
         }
     }
 }
