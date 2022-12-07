@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Hazard
   - Bullet
+  - BulletParent
   layers:
   - Default
   - TransparentFX
@@ -62,6 +63,9 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 201087597
+    locked: 0
+  - name: Player_FX
+    uniqueID: 3583444647
     locked: 0
   - name: Player
     uniqueID: 193397921
