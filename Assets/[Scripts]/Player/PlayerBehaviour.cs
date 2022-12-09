@@ -36,6 +36,9 @@ public class PlayerBehaviour : MonoBehaviour
     public float shakeTimer;
     public bool isCameraShaking;
 
+    [Header("Collision Response")] 
+    public float bounceForce;
+
     [Header("Health System")] 
     public HealthBarController health;
     public LifeCounterController life;
@@ -178,30 +181,32 @@ public class PlayerBehaviour : MonoBehaviour
         
     }
 
-    
-
-
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(groundPoint.position, groundRadius);
     }
 
-    private void DamagePlayer(string tag_name)
+    private void DamagePlayer(GameObject go)
     {
-        switch (tag_name)
+        switch (go.tag)
         {
             case "Enemy":
                 health.TakeDamage(20);
                 PlayFXAndShakeCamera();
+                rigidBody2D.AddForce(new Vector2(bounceForce * (rigidBody2D.velocity.x > 0.0 ? -1.0f : 1.0f), 0.0f), ForceMode2D.Impulse);
                 break;
             case "Hazard":
                 health.TakeDamage(30);
                 PlayFXAndShakeCamera();
+                rigidBody2D.AddForce(new Vector2(bounceForce * (rigidBody2D.velocity.x > 0.0 ? -1.0f : 1.0f), 0.0f), ForceMode2D.Impulse);
                 break;
             case "Bullet":
                 health.TakeDamage(10);
                 PlayFXAndShakeCamera();
+
+                var velocity = go.GetComponent<Rigidbody2D>().velocity;
+                rigidBody2D.AddForce(new Vector2(bounceForce * (velocity.x > 0.0 ? 1.0f : -1.0f), 0.0f), ForceMode2D.Impulse);
                 break;
         }
     }
@@ -217,12 +222,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        DamagePlayer(other.gameObject.tag);
+        DamagePlayer(other.gameObject);
     }
 
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        DamagePlayer(other.gameObject.tag);
+        DamagePlayer(other.gameObject);
     }
 }
