@@ -17201,7 +17201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7072273973629019326, guid: 3889cb435a1883643a19de7ede838935, type: 3}
       propertyPath: bounceForce
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7072273973629019326, guid: 3889cb435a1883643a19de7ede838935, type: 3}
       propertyPath: shakeDuration
