@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,7 +27,14 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("Dust Trail Properties")] 
     public ParticleSystem dustTrailParticleSystem;
     public Color dustTrailColor;
-    
+
+    [Header("Screen Shake Properties")] 
+    public CinemachineVirtualCamera playerCamera;
+    public CinemachineBasicMultiChannelPerlin perlin;
+    public float shakeIntensity;
+    public float shakeDuration;
+    public float shakeTimer;
+    public bool isCameraShaking;
 
     [Header("Health System")] 
     public HealthBarController health;
@@ -44,6 +53,12 @@ public class PlayerBehaviour : MonoBehaviour
         deathPlane = GameObject.FindObjectOfType<DeathPlaneController>();
         dustTrailParticleSystem = GetComponentInChildren<ParticleSystem>();
         savedVerticalForce = verticalForce;
+
+        // Camera Shake Setup
+        playerCamera = GameObject.Find("Player Camera").GetComponent<CinemachineVirtualCamera>();
+        perlin = playerCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        isCameraShaking = false;
+        shakeTimer = shakeDuration;
     }
 
     private void Update()
@@ -83,6 +98,18 @@ public class PlayerBehaviour : MonoBehaviour
         Move();
         Jump();
         AirCheck();
+
+        // camera shake control
+        if (isCameraShaking)
+        {
+            shakeTimer -= Time.deltaTime;
+            if (shakeTimer <= 0.0f)
+            {
+                perlin.m_AmplitudeGain = 0.0f;
+                shakeTimer = shakeDuration;
+                isCameraShaking = false;
+            }
+        }
     }
 
     public void Move()
@@ -115,6 +142,12 @@ public class PlayerBehaviour : MonoBehaviour
     {
         dustTrailParticleSystem.GetComponent<Renderer>().material.SetColor("_Color", dustTrailColor);
         dustTrailParticleSystem.Play();
+    }
+
+    public void ShakeCamera()
+    {
+        perlin.m_AmplitudeGain = shakeIntensity;
+        isCameraShaking = true;
     }
 
     public void Jump()
@@ -154,25 +187,42 @@ public class PlayerBehaviour : MonoBehaviour
         Gizmos.DrawWireSphere(groundPoint.position, groundRadius);
     }
 
+    private void DamagePlayer(string tag_name)
+    {
+        switch (tag_name)
+        {
+            case "Enemy":
+                health.TakeDamage(20);
+                PlayFXAndShakeCamera();
+                break;
+            case "Hazard":
+                health.TakeDamage(30);
+                PlayFXAndShakeCamera();
+                break;
+            case "Bullet":
+                health.TakeDamage(10);
+                PlayFXAndShakeCamera();
+                break;
+        }
+    }
+
+    private void PlayFXAndShakeCamera()
+    {
+        if (life.value > 0)
+        {
+            SoundManager.Instance().PlaySoundFX(SoundFXType.HURT);
+            ShakeCamera();
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        DamagePlayer(other.gameObject.tag);
+    }
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Hazard"))
-        {
-            health.TakeDamage(30);
-            if (life.value > 0)
-            {
-                SoundManager.Instance().PlaySoundFX(SoundFXType.HURT);
-            }
-        }
-
-        if (other.CompareTag("Bullet"))
-        {
-            health.TakeDamage(10);
-            if (life.value > 0)
-            {
-                SoundManager.Instance().PlaySoundFX(SoundFXType.HURT);
-            }
-        }
+        DamagePlayer(other.gameObject.tag);
     }
 }

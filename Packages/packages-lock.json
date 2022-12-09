@@ -80,7 +80,7 @@
     },
     "com.unity.burst": {
       "version": "1.7.3",
-      "depth": 3,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1"
@@ -97,7 +97,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.collab-proxy": {
-      "version": "1.17.2",
+      "version": "1.17.7",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -105,9 +105,36 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.collections": {
+      "version": "1.2.4",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.burst": "1.6.6",
+        "com.unity.test-framework": "1.1.31"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.connect.share": {
+      "version": "4.2.3",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.editorcoroutines": "1.0.0",
+        "com.unity.settings-manager": "1.0.2"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.device-simulator.devices": {
       "version": "1.0.0",
       "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.editorcoroutines": {
+      "version": "1.0.0",
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -143,7 +170,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.16",
+      "version": "2.0.17",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -183,6 +210,13 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.settings-manager": {
+      "version": "2.0.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.test-framework": {
       "version": "1.1.33",
       "depth": 0,
@@ -204,7 +238,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.7.1",
+      "version": "1.7.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {

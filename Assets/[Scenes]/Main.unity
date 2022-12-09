@@ -10540,6 +10540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8120d0d69ab6344bf29176acbb3ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  miniMap: {fileID: 0}
 --- !u!4 &732724118 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5315572532859768204, guid: 27b57eaf7677e314bacbbc50ab3aefdb, type: 3}
@@ -16165,6 +16166,7 @@ GameObject:
   - component: {fileID: 1631347561}
   - component: {fileID: 1631347564}
   - component: {fileID: 1631347565}
+  - component: {fileID: 1631347566}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -16221,6 +16223,23 @@ MonoBehaviour:
   m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
+--- !u!114 &1631347566
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631347560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 1
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1775479381
 GameObject:
   m_ObjectHideFlags: 0
@@ -16395,6 +16414,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5315572532859768205, guid: 27b57eaf7677e314bacbbc50ab3aefdb, type: 3}
       propertyPath: m_Name
+      value: CheckPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 5315572532859768205, guid: 27b57eaf7677e314bacbbc50ab3aefdb, type: 3}
+      propertyPath: m_TagString
       value: CheckPoint
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -17175,6 +17198,14 @@ PrefabInstance:
     - target: {fileID: 7072273973629019323, guid: 3889cb435a1883643a19de7ede838935, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072273973629019326, guid: 3889cb435a1883643a19de7ede838935, type: 3}
+      propertyPath: shakeDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7072273973629019326, guid: 3889cb435a1883643a19de7ede838935, type: 3}
+      propertyPath: shakeIntensity
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
